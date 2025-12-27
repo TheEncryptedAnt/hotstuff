@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #0b0f0e;
+  color: #e5e7eb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.screen {
+  display: none;
+  max-width: 720px;
+  width: 100%;
+  background: #111827;
+  padding: 32px;
+  border-radius: 14px;
+}
+
+.screen.active {
+  display: block;
+}
+
+button {
+  background: #22c55e;
+  border: none;
+  padding: 14px 22px;
+  border-radius: 10px;
+  cursor: pointer;
+}
