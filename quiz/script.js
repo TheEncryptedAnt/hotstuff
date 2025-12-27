@@ -13,7 +13,7 @@ const questions = [
     q: "Which problem does HotStuff improve over older BFT protocols?",
     options: [
       "High gas fees",
-      "Slow finality & communication",
+      "Slow finality and communication",
       "Token inflation",
       "Energy consumption"
     ],
@@ -33,30 +33,27 @@ const questions = [
     q: "What makes HotStuff scalable?",
     options: [
       "Proof of Work",
+      "Quadratic messaging",
       "Linear communication",
-      "Sharding",
       "Central authority"
     ],
-    answer: 1
+    answer: 2
   },
   {
-    q: "HotStuff belongs to which category?",
+    q: "HotStuff belongs to which family of protocols?",
     options: [
-      "DEX protocol",
-      "Layer 2 solution",
-      "BFT consensus protocol",
-      "Wallet framework"
+      "PoS",
+      "BFT",
+      "PoW",
+      "DAG"
     ],
-    answer: 2
+    answer: 1
   }
 ];
 
-let index = 0;
+let current = 0;
 let score = 0;
-let timer;
-let timeLeft = 30;
 
-const startBtn = document.getElementById("start-btn");
 const startScreen = document.getElementById("start-screen");
 const quizScreen = document.getElementById("quiz-screen");
 const resultScreen = document.getElementById("result-screen");
@@ -64,78 +61,52 @@ const resultScreen = document.getElementById("result-screen");
 const questionEl = document.getElementById("question");
 const optionsEl = document.getElementById("options");
 const progressEl = document.getElementById("progress");
-const timerEl = document.getElementById("timer");
 const scoreText = document.getElementById("score-text");
 
-startBtn.onclick = () => {
+document.getElementById("start-btn").onclick = () => {
   startScreen.classList.remove("active");
   quizScreen.classList.add("active");
   loadQuestion();
 };
 
 function loadQuestion() {
-  clearInterval(timer);
-  timeLeft = 30;
-  timerEl.textContent = "30s";
-
-  const q = questions[index];
+  const q = questions[current];
   questionEl.textContent = q.q;
-  progressEl.textContent = `Question ${index + 1}/${questions.length}`;
+  progressEl.textContent = `Question ${current + 1}/${questions.length}`;
   optionsEl.innerHTML = "";
 
   q.options.forEach((opt, i) => {
     const div = document.createElement("div");
     div.className = "option";
     div.innerHTML = `
-      <span class="option-letter">${String.fromCharCode(65 + i)}</span>
-      <span class="option-text">${opt}</span>
+      <div class="option-letter">${String.fromCharCode(65 + i)}</div>
+      <div>${opt}</div>
     `;
     div.onclick = () => selectOption(div, i);
     optionsEl.appendChild(div);
   });
-
-  timer = setInterval(() => {
-    timeLeft--;
-    timerEl.textContent = timeLeft + "s";
-    if (timeLeft === 0) showCorrectAndNext();
-  }, 1000);
 }
 
-function selectOption(selectedEl, selectedIndex) {
-  clearInterval(timer);
+function selectOption(el, index) {
+  const correct = questions[current].answer;
+  const options = document.querySelectorAll(".option");
 
-  const correctIndex = questions[index].answer;
-  const allOptions = [...optionsEl.children];
+  options.forEach((opt, i) => {
+    opt.onclick = null;
+    if (i === correct) opt.classList.add("correct");
+    if (i === index && i !== correct) opt.classList.add("wrong");
+  });
 
-  // Disable further clicks
-  allOptions.forEach(opt => opt.onclick = null);
+  if (index === correct) score++;
 
-  // Always show correct answer
-  allOptions[correctIndex].classList.add("correct");
-
-  // If user is wrong → mark selected as wrong
-  if (selectedIndex !== correctIndex) {
-    selectedEl.classList.add("wrong");
-  } else {
-    score++;
-  }
-
-  setTimeout(nextQuestion, 1500);
-}
-
-function showCorrectAndNext() {
-  const correctIndex = questions[index].answer;
-  optionsEl.children[correctIndex].classList.add("correct");
-  setTimeout(nextQuestion, 1500);
-}
-
-function nextQuestion() {
-  index++;
-  if (index < questions.length) {
-    loadQuestion();
-  } else {
-    quizScreen.classList.remove("active");
-    resultScreen.classList.add("active");
-    scoreText.textContent = `You scored ${score} out of ${questions.length}`;
-  }
+  setTimeout(() => {
+    current++;
+    if (current < questions.length) {
+      loadQuestion();
+    } else {
+      quizScreen.classList.remove("active");
+      resultScreen.classList.add("active");
+      scoreText.textContent = `You scored ${score} out of ${questions.length}`;
+    }
+  }, 1200);
 }
