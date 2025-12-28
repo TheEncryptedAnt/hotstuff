@@ -137,77 +137,158 @@
   <script>
 const quizData = [
   {
-    q: "What is Codex primarily focused on?",
+    question: "What is Codex primarily focused on?",
     options: [
-      "NFT Trading",
-      "Stablecoins & Payments",
+      "NFT trading",
+      "Stablecoins and payments",
       "Gaming",
-      "Social Media"
+      "Social media"
     ],
-    answer: 1
+    correct: 1
   },
   {
-    q: "Codex is built on which blockchain?",
+    question: "Codex is built on which blockchain?",
     options: [
       "Solana",
       "Polygon",
       "Ethereum",
       "Avalanche"
     ],
-    answer: 2
+    correct: 2
   },
   {
-    q: "What does native FX mean in Codex?",
+    question: "Why does Codex batch transactions?",
     options: [
-      "Off-chain swaps",
-      "NFT exchange",
-      "Onchain stablecoin swaps",
-      "Mining rewards"
+      "To increase delays",
+      "To reduce cost and congestion",
+      "For speculation",
+      "For mining rewards"
     ],
-    answer: 2
+    correct: 1
+  },
+  {
+    question: "What does native FX enable on Codex?",
+    options: [
+      "NFT swaps",
+      "Onchain stablecoin swaps",
+      "Offchain banking",
+      "Mining incentives"
+    ],
+    correct: 1
+  },
+  {
+    question: "Where does final settlement happen on Codex?",
+    options: [
+      "Codex offchain servers",
+      "Centralized exchange",
+      "Ethereum",
+      "Sidechain only"
+    ],
+    correct: 2
+  },
+  {
+    question: "What type of network is Codex?",
+    options: [
+      "Layer 1",
+      "Layer 2",
+      "Sidechain",
+      "Testnet only"
+    ],
+    correct: 1
+  },
+  {
+    question: "Which asset type is Codex optimized for?",
+    options: [
+      "Memecoins",
+      "Stablecoins",
+      "Governance tokens",
+      "NFTs"
+    ],
+    correct: 1
+  },
+  {
+    question: "What problem does Codex mainly solve?",
+    options: [
+      "High gas fees for NFTs",
+      "Unstable meme trading",
+      "Inefficient stablecoin payments",
+      "Gaming latency"
+    ],
+    correct: 2
+  },
+  {
+    question: "What makes Codex different from Ethereum L1?",
+    options: [
+      "More validators",
+      "Stablecoin-first design",
+      "Proof of work",
+      "Faster NFTs"
+    ],
+    correct: 1
+  },
+  {
+    question: "Codex is best suited for which use case?",
+    options: [
+      "Onchain gaming",
+      "Payments and FX",
+      "NFT minting",
+      "DAO voting"
+    ],
+    correct: 1
   }
 ];
 
-let index = 0;
+let currentQuestion = 0;
 let score = 0;
+let answered = false;
 
 const questionEl = document.getElementById("question");
 const optionButtons = document.querySelectorAll(".options button");
-const feedback = document.getElementById("feedback");
+const feedbackEl = document.getElementById("feedback");
 const nextBtn = document.getElementById("nextBtn");
 
 loadQuestion();
 
 function loadQuestion() {
-  feedback.innerText = "";
+  answered = false;
+  feedbackEl.textContent = "";
   nextBtn.disabled = true;
-  const current = quizData[index];
-  questionEl.innerText = current.q;
 
-  optionButtons.forEach((btn, i) => {
-    btn.innerText = current.options[i];
+  const q = quizData[currentQuestion];
+  questionEl.textContent = `${currentQuestion + 1}. ${q.question}`;
+
+  optionButtons.forEach((btn, index) => {
+    btn.textContent = q.options[index];
     btn.className = "";
     btn.disabled = false;
-    btn.onclick = () => checkAnswer(i);
+    btn.onclick = () => selectAnswer(index);
   });
 }
 
-function checkAnswer(selected) {
-  optionButtons.forEach(b => b.disabled = true);
-  if (selected === quizData[index].answer) {
-    optionButtons[selected].classList.add("correct");
-    feedback.innerText = "✅ Correct!";
+function selectAnswer(selectedIndex) {
+  if (answered) return;
+  answered = true;
+
+  const correctIndex = quizData[currentQuestion].correct;
+
+  optionButtons.forEach(btn => btn.disabled = true);
+
+  if (selectedIndex === correctIndex) {
+    optionButtons[selectedIndex].classList.add("correct");
+    feedbackEl.textContent = "✅ Correct!";
     score++;
   } else {
-    optionButtons[selected].classList.add("wrong");
-    feedback.innerText = "❌ Wrong answer";
+    optionButtons[selectedIndex].classList.add("wrong");
+    optionButtons[correctIndex].classList.add("correct");
+    feedbackEl.textContent = "❌ Wrong answer";
   }
+
   nextBtn.disabled = false;
 }
 
 function nextQuestion() {
-  index++;
-  if (index < quizData.length) {
+  currentQuestion++;
+  if (currentQuestion < quizData.length) {
     loadQuestion();
   } else {
     showResult();
@@ -218,10 +299,12 @@ function showResult() {
   document.querySelector(".quiz-card").innerHTML = `
     <h2>Quiz Completed 🎉</h2>
     <p>Your Score: <strong>${score} / ${quizData.length}</strong></p>
+    <p>Thanks for learning Codex.</p>
     <button onclick="location.reload()">Restart Quiz</button>
   `;
 }
 </script>
+
 
 </body>
 </html>
