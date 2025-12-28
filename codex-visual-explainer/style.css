@@ -1,10 +1,10 @@
 :root {
   --bg: #0b120d;
-  --card: rgba(255,255,255,0.06);
+  --panel: rgba(255,255,255,0.06);
   --border: rgba(255,255,255,0.12);
-  --text: #ededed;
-  --muted: #b8b8b8;
-  --accent: #e6d3a3;
+  --text: #e6e6e6;
+  --muted: #a1a1a1;
+  --accent: #f0d89c;
 }
 
 * {
@@ -14,7 +14,8 @@
 body {
   margin: 0;
   font-family: Inter, system-ui, sans-serif;
-  background: radial-gradient(circle at top, #16231a, var(--bg));
+  background:
+    radial-gradient(circle at top, #152117, #0b120d);
   color: var(--text);
 }
 
@@ -26,31 +27,34 @@ body {
 .header-inner {
   max-width: 1100px;
   margin: auto;
-  padding: 0 20px;
   display: flex;
-  gap: 14px;
   align-items: center;
+  gap: 16px;
+  padding: 0 20px;
 }
 
-.logo-box {
-  background: rgba(255,255,255,0.1);
-  padding: 10px;
+.logo-wrap {
+  background: rgba(0,0,0,0.35);
+  padding: 12px;
   border-radius: 12px;
 }
 
-.logo-box img {
-  width: 26px;
+.logo-wrap img {
+  width: 44px;
+  height: 44px;
 }
 
-.subtitle {
-  font-size: 13px;
+.sub {
+  margin: 0;
   color: var(--muted);
+  font-size: 14px;
 }
 
 /* HERO */
 .hero {
-  max-width: 1100px;
-  margin: 60px auto;
+  max-width: 900px;
+  margin: 80px auto;
+  text-align: center;
   padding: 0 20px;
 }
 
@@ -60,7 +64,6 @@ body {
 }
 
 .hero p {
-  max-width: 720px;
   color: var(--muted);
   line-height: 1.6;
 }
@@ -68,61 +71,53 @@ body {
 /* FEATURES */
 .features {
   max-width: 1100px;
-  margin: 60px auto;
-  padding: 0 20px;
+  margin: 80px auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  padding: 0 20px;
 }
 
-.feature {
-  background: var(--card);
+.card {
+  background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 24px;
 }
 
-.feature span {
+.num {
   color: var(--accent);
-  font-size: 12px;
+  font-size: 14px;
 }
 
-.feature h3 {
-  margin: 10px 0;
-}
-
-/* HOW IT WORKS */
-.how {
+/* FLOW */
+.flow {
   max-width: 1100px;
-  margin: 80px auto;
+  margin: 100px auto;
   padding: 0 20px;
 }
 
-.how h2 {
-  margin-bottom: 30px;
+.flow h2 {
+  margin-bottom: 32px;
 }
 
-.steps {
+.flow-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
 }
 
-.step {
-  background: var(--card);
+.flow-step {
+  background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 20px;
 }
 
-.step h4 {
-  margin: 0 0 8px;
-}
-
 /* FOOTER */
-footer {
+.footer {
   text-align: center;
   padding: 40px 20px;
-  font-size: 13px;
   color: var(--muted);
+  font-size: 14px;
 }
