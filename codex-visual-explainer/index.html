@@ -2,91 +2,95 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Codex – Visual Explainer</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-<header class="header">
-  <div class="header-inner">
-    <div class="logo-box">
-      <img src="codex-logo.png" alt="Codex logo">
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <img src="codex-logo.png" alt="Codex Logo" />
+      </div>
+      <div>
+        <h1>CODEX</h1>
+        <p class="sub">Visual Explainer</p>
+      </div>
     </div>
-    <div>
-      <h1>CODEX</h1>
-      <p class="subtitle">Visual Explainer</p>
-    </div>
-  </div>
-</header>
+  </header>
 
-<section class="hero">
-  <h2>The stablecoin chain built on Ethereum</h2>
-  <p>
-    Codex is a purpose-built Layer 2 focused on stablecoins, payments,
-    and native FX — optimized for predictability, low fees, and global liquidity.
-  </p>
-</section>
-
-<section class="features">
-  <div class="feature">
-    <span>01</span>
-    <h3>Security of Ethereum</h3>
+  <!-- HERO -->
+  <section class="hero">
+    <h2>The stablecoin chain built on Ethereum</h2>
     <p>
-      Every transaction settles on Ethereum, leveraging the most secure
-      and battle-tested smart contract platform.
+      Codex is a purpose-built Layer 2 focused on stablecoins, payments,
+      and native FX — optimized for predictability, low fees, and global liquidity.
     </p>
-  </div>
+  </section>
 
-  <div class="feature">
-    <span>02</span>
-    <h3>Predictable, Low Fees</h3>
-    <p>
-      Codex delivers consistent transaction costs even during congestion —
-      ideal for payments and FX.
-    </p>
-  </div>
-
-  <div class="feature">
-    <span>03</span>
-    <h3>Native Onchain FX</h3>
-    <p>
-      Built-in FX between stablecoins enables low-slippage swaps and
-      instant settlement across global currencies.
-    </p>
-  </div>
-</section>
-
-<section class="how">
-  <h2>How Codex Works <span>(in 60 seconds)</span></h2>
-
-  <div class="steps">
-    <div class="step">
-      <h4>1. Send Stablecoin</h4>
-      <p>User initiates a payment using a supported stablecoin.</p>
+  <!-- CORE FEATURES -->
+  <section class="features">
+    <div class="card">
+      <span class="num">01</span>
+      <h3>Security of Ethereum</h3>
+      <p>
+        Every transaction settles on Ethereum, leveraging the most secure
+        and battle-tested smart contract platform.
+      </p>
     </div>
 
-    <div class="step">
-      <h4>2. Batch & Route</h4>
-      <p>Codex batches transactions to reduce cost and congestion.</p>
+    <div class="card">
+      <span class="num">02</span>
+      <h3>Predictable, Low Fees</h3>
+      <p>
+        Codex delivers consistent transaction costs even during congestion —
+        ideal for payments and FX.
+      </p>
     </div>
 
-    <div class="step">
-      <h4>3. Native FX</h4>
-      <p>Stablecoins are swapped onchain with minimal slippage.</p>
+    <div class="card">
+      <span class="num">03</span>
+      <h3>Native Onchain FX</h3>
+      <p>
+        Built-in FX between stablecoins enables low-slippage swaps and instant
+        settlement across global currencies.
+      </p>
     </div>
+  </section>
 
-    <div class="step">
-      <h4>4. Ethereum Settlement</h4>
-      <p>Final settlement happens on Ethereum for maximum security.</p>
+  <!-- FLOW -->
+  <section class="flow">
+    <h2>How Codex Works (in 60 seconds)</h2>
+
+    <div class="flow-grid">
+      <div class="flow-step">
+        <h4>1. Send Stablecoin</h4>
+        <p>User initiates a payment using a supported stablecoin.</p>
+      </div>
+
+      <div class="flow-step">
+        <h4>2. Batch & Route</h4>
+        <p>Codex batches transactions to reduce cost and congestion.</p>
+      </div>
+
+      <div class="flow-step">
+        <h4>3. Native FX</h4>
+        <p>Stablecoins are swapped onchain with minimal slippage.</p>
+      </div>
+
+      <div class="flow-step">
+        <h4>4. Ethereum Settlement</h4>
+        <p>Final settlement happens on Ethereum for maximum security.</p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer>
-  Built with ❤️ by <strong>@TheEncryptedAnt</strong> · Community-built visual explainer
-</footer>
+  <!-- FOOTER -->
+  <footer class="footer">
+    Built with ❤️ by <b>@TheEncryptedAnt</b> · Community-built visual explainer
+  </footer>
 
 </body>
 </html>
