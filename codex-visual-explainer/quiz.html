@@ -9,172 +9,236 @@
     body {
       margin: 0;
       font-family: Inter, system-ui, sans-serif;
-      background: #0b120d;
+      background: radial-gradient(circle at top, #142015, #0b120d);
       color: #e6e6e6;
     }
 
     .container {
       max-width: 720px;
       margin: 80px auto;
-      padding: 24px;
+      padding: 32px;
       background: rgba(255,255,255,0.05);
-      border-radius: 16px;
       border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
     }
 
-    h2 {
-      margin-bottom: 10px;
+    h1, h2 {
+      color: #f1d99b;
+    }
+
+    .progress {
+      height: 8px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #f1d99b;
+      transition: width 0.3s ease;
     }
 
     .question {
-      font-size: 18px;
+      font-size: 20px;
       margin-bottom: 20px;
     }
 
     .option {
       display: block;
       width: 100%;
-      padding: 14px;
+      text-align: left;
+      padding: 14px 16px;
       margin-bottom: 12px;
-      border-radius: 10px;
+      border-radius: 12px;
       border: 1px solid rgba(255,255,255,0.15);
-      background: transparent;
+      background: rgba(255,255,255,0.04);
       color: #e6e6e6;
       cursor: pointer;
-      text-align: left;
+      transition: all 0.2s;
     }
 
     .option:hover {
-      background: rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.08);
     }
 
-    .correct {
-      background: rgba(100,200,150,0.25);
-      border-color: #64c896;
+    .hidden {
+      display: none;
     }
 
-    .wrong {
-      background: rgba(255,100,100,0.25);
-      border-color: #ff6464;
+    .score {
+      font-size: 22px;
+      margin-bottom: 16px;
     }
 
-    .feedback {
-      margin: 16px 0;
-      font-weight: 600;
+    .cta {
+      margin-top: 24px;
     }
 
-    .next-btn {
-      margin-top: 10px;
-      padding: 12px 20px;
-      background: #e6d3a3;
+    .btn {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: #f1d99b;
       color: #000;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
       font-weight: 600;
+      text-decoration: none;
+      margin-right: 12px;
     }
 
-    .next-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+    footer {
+      text-align: center;
+      margin: 40px 0;
+      font-size: 14px;
+      color: #a1a1a1;
+    }
+
+    footer a {
+      color: #f1d99b;
+      text-decoration: none;
     }
   </style>
 </head>
-<footer class="quiz-footer">
-  Built with ❤️ by 
-  <a href="https://x.com/TheEncryptedAnt" target="_blank" class="profile-link">
-    @TheEncryptedAnt
-  </a>
-  · Community-built Codex Quiz
-</footer>
 
 <body>
 
-<div class="container">
-  <h2>Codex Quiz</h2>
+<div class="container" id="quiz-box">
+
+  <h1>Codex Quiz</h1>
+
+  <div class="progress">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
   <div class="question" id="question"></div>
+  <div id="options"></div>
 
-  <button class="option" onclick="answer(0)"></button>
-  <button class="option" onclick="answer(1)"></button>
-  <button class="option" onclick="answer(2)"></button>
-  <button class="option" onclick="answer(3)"></button>
-
-  <div class="feedback" id="feedback"></div>
-
-  <button class="next-btn" id="nextBtn" onclick="next()" disabled>
-    Next →
-  </button>
 </div>
 
+<!-- SCORE SCREEN -->
+<div class="container hidden" id="score-box">
+  <h2>Quiz Completed 🎉</h2>
+  <p class="score" id="scoreText"></p>
+
+  <div class="cta">
+    <a class="btn" href="https://codex.xyz" target="_blank">
+      Learn more about Codex
+    </a>
+    <a class="btn" href="index.html">
+      Back to Home
+    </a>
+  </div>
+</div>
+
+<footer>
+  Built with ❤️ by
+  <a href="https://x.com/TheEncryptedAnt" target="_blank">
+    @TheEncryptedAnt
+  </a>
+</footer>
+
 <script>
-const quiz = [
-  { q: "What is Codex focused on?", o: ["NFTs","Stablecoins & Payments","Gaming","Social"], a:1 },
-  { q: "Codex settles on which chain?", o: ["Solana","Polygon","Ethereum","Avalanche"], a:2 },
-  { q: "Why does Codex batch transactions?", o: ["Delay","Reduce cost","Speculation","Mining"], a:1 },
-  { q: "What does native FX mean?", o: ["NFT swaps","Stablecoin swaps","Offchain","Mining"], a:1 },
-  { q: "Codex is a…", o: ["Layer 1","Layer 2","Sidechain","Bridge"], a:1 },
-  { q: "Optimized asset?", o: ["Memecoins","Stablecoins","NFTs","Gov tokens"], a:1 },
-  { q: "Main use case?", o: ["Gaming","Payments & FX","NFT mint","DAO"], a:1 },
-  { q: "Final settlement?", o: ["Offchain","CEX","Ethereum","Server"], a:2 },
-  { q: "Codex reduces…", o: ["Speed","Liquidity","Fees","Security"], a:2 },
-  { q: "Best for?", o: ["NFTs","Payments","Memes","Gaming"], a:1 }
-];
+  const quiz = [
+    {
+      q: "What is Codex primarily focused on?",
+      o: ["NFTs", "Stablecoins and payments", "Gaming", "Memecoins"],
+      a: 1
+    },
+    {
+      q: "Which layer is Codex built on?",
+      o: ["Layer 1", "Layer 3", "Layer 2", "Sidechain"],
+      a: 2
+    },
+    {
+      q: "Where does Codex settle transactions?",
+      o: ["Solana", "Polygon", "Ethereum", "BNB Chain"],
+      a: 2
+    },
+    {
+      q: "What makes Codex fees special?",
+      o: ["High but fast", "Predictable", "Zero gas", "Dynamic spikes"],
+      a: 1
+    },
+    {
+      q: "What does Native FX enable?",
+      o: ["NFT swaps", "Low-slippage stablecoin swaps", "Bridges", "Mining"],
+      a: 1
+    },
+    {
+      q: "Codex is optimized for?",
+      o: ["Speculation", "Meme trading", "Payments", "Gaming"],
+      a: 2
+    },
+    {
+      q: "Which currency type is Codex built around?",
+      o: ["Volatile tokens", "Stablecoins", "BTC only", "NFTs"],
+      a: 1
+    },
+    {
+      q: "What ensures security in Codex?",
+      o: ["Validators", "Ethereum settlement", "Oracles", "Multisig"],
+      a: 1
+    },
+    {
+      q: "What is Atomic Offramps about?",
+      o: ["Instant exits", "Reverting failed compliance", "Bridges", "DEX fees"],
+      a: 1
+    },
+    {
+      q: "Codex is best described as?",
+      o: ["General L2", "Payment-focused L2", "Game chain", "NFT chain"],
+      a: 1
+    }
+  ];
 
-let i = 0;
-let score = 0;
-let locked = false;
+  let index = 0;
+  let score = 0;
 
-const qEl = document.getElementById("question");
-const opts = document.querySelectorAll(".option");
-const fb = document.getElementById("feedback");
-const nextBtn = document.getElementById("nextBtn");
+  const questionEl = document.getElementById("question");
+  const optionsEl = document.getElementById("options");
+  const progressBar = document.getElementById("progressBar");
 
-load();
+  function loadQuestion() {
+    const data = quiz[index];
+    questionEl.textContent = `${index + 1}. ${data.q}`;
+    optionsEl.innerHTML = "";
 
-function load() {
-  locked = false;
-  fb.textContent = "";
-  nextBtn.disabled = true;
+    progressBar.style.width =
+      ((index) / quiz.length) * 100 + "%";
 
-  qEl.textContent = `${i+1}. ${quiz[i].q}`;
-  opts.forEach((b, idx) => {
-    b.textContent = quiz[i].o[idx];
-    b.className = "option";
-    b.disabled = false;
-  });
-}
-
-function answer(idx) {
-  if (locked) return;
-  locked = true;
-
-  opts.forEach(b => b.disabled = true);
-
-  if (idx === quiz[i].a) {
-    opts[idx].classList.add("correct");
-    fb.textContent = "✅ Correct";
-    score++;
-  } else {
-    opts[idx].classList.add("wrong");
-    opts[quiz[i].a].classList.add("correct");
-    fb.textContent = "❌ Wrong";
+    data.o.forEach((opt, i) => {
+      const btn = document.createElement("button");
+      btn.className = "option";
+      btn.textContent = opt;
+      btn.onclick = () => selectAnswer(i);
+      optionsEl.appendChild(btn);
+    });
   }
 
-  nextBtn.disabled = false;
-}
+  function selectAnswer(i) {
+    if (i === quiz[index].a) score++;
+    index++;
 
-function next() {
-  i++;
-  if (i < quiz.length) {
-    load();
-  } else {
-    document.querySelector(".container").innerHTML = `
-      <h2>Quiz Completed 🎉</h2>
-      <p>Your score: <strong>${score} / ${quiz.length}</strong></p>
-      <button class="next-btn" onclick="location.reload()">Restart</button>
-    `;
+    if (index < quiz.length) {
+      loadQuestion();
+    } else {
+      endQuiz();
+    }
   }
-}
+
+  function endQuiz() {
+    document.getElementById("quiz-box").classList.add("hidden");
+    document.getElementById("score-box").classList.remove("hidden");
+
+    progressBar.style.width = "100%";
+
+    document.getElementById("scoreText").textContent =
+      `You scored ${score} out of ${quiz.length}`;
+  }
+
+  loadQuestion();
 </script>
 
 </body>
