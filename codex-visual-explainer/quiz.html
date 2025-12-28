@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Codex Quiz – How It Works</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Quiz-specific styles */
+    .quiz-section {
+      max-width: 900px;
+      margin: 80px auto;
+      padding: 0 20px;
+    }
+
+    .quiz-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 28px;
+    }
+
+    .quiz-card h3 {
+      margin-bottom: 16px;
+      font-size: 22px;
+    }
+
+    .option {
+      display: block;
+      margin: 10px 0;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .option:hover {
+      background: rgba(255,255,255,0.06);
+    }
+
+    .option.correct {
+      border-color: #6dd3a3;
+      background: rgba(109,211,163,0.15);
+    }
+
+    .option.wrong {
+      border-color: #ff6b6b;
+      background: rgba(255,107,107,0.15);
+    }
+
+    .result {
+      margin-top: 16px;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    .back-link {
+      margin-top: 40px;
+      display: inline-block;
+      opacity: 0.8;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <img src="codex-logo.png" alt="Codex Logo" class="logo" />
+      <div class="brand">
+        <h1>CODEX</h1>
+        <p>Interactive Quiz</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Quiz -->
+  <section class="quiz-section">
+
+    <h2>How Codex Works (Quick Quiz)</h2>
+    <p class="muted">
+      Test your understanding of Codex’s stablecoin flow.
+    </p>
+
+    <!-- Q1 -->
+    <div class="quiz-card">
+      <h3>1️⃣ User sends USDC — what happens first?</h3>
+
+      <button class="option" onclick="check(this, false)">Ethereum settlement</button>
+      <button class="option" onclick="check(this, true)">Batch & Route</button>
+      <button class="option" onclick="check(this, false)">Native FX</button>
+
+      <div class="result"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-card">
+      <h3>2️⃣ Why does Codex batch transactions?</h3>
+
+      <button class="option" onclick="check(this, false)">For speculation</button>
+      <button class="option" onclick="check(this, true)">To reduce cost & congestion</button>
+      <button class="option" onclick="check(this, false)">To delay settlement</button>
+
+      <div class="result"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-card">
+      <h3>3️⃣ Where does final settlement happen?</h3>
+
+      <button class="option" onclick="check(this, true)">Ethereum</button>
+      <button class="option" onclick="check(this, false)">Codex offchain</button>
+      <button class="option" onclick="check(this, false)">Centralized server</button>
+
+      <div class="result"></div>
+    </div>
+
+    <a href="index.html" class="back-link">← Back to Visual Explainer</a>
+
+  </section>
+
+  <footer class="footer">
+    Built with ❤️ by @TheEncryptedAnt · Community-built Codex quiz
+  </footer>
+
+  <script>
+    function check(btn, correct) {
+      const card = btn.closest(".quiz-card");
+      const options = card.querySelectorAll(".option");
+      const result = card.querySelector(".result");
+
+      options.forEach(o => o.disabled = true);
+
+      if (correct) {
+        btn.classList.add("correct");
+        result.textContent = "✅ Correct!";
+      } else {
+        btn.classList.add("wrong");
+        result.textContent = "❌ Not quite — try the flow again.";
+      }
+    }
+  </script>
+
+</body>
+</html>
