@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Codex – Visual Explainer</title>
+  <title>Codex — Visual Explainer</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+
   <!-- Header -->
   <header class="header">
     <div class="header-inner">
@@ -58,6 +59,37 @@
     </div>
   </section>
 
+  <!-- How Codex Works -->
+  <section class="how-it-works">
+    <h2>How Codex Works <span>(in 60 seconds)</span></h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h4>Send Stablecoin</h4>
+        <p>User initiates a payment using a supported stablecoin.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <h4>Batch & Route</h4>
+        <p>Codex batches transactions to reduce cost and congestion.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <h4>Native FX</h4>
+        <p>Stablecoins are swapped onchain with minimal slippage.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">4</div>
+        <h4>Ethereum Settlement</h4>
+        <p>Final settlement happens on Ethereum for maximum security.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- What's Coming Next -->
   <section class="next-section">
     <h2>What’s coming next</h2>
@@ -65,16 +97,20 @@
     <div class="next-item">
       <h3>Atomic Offramps</h3>
       <p>
-        Failed compliance checks revert automatically, protecting users’
-        stablecoins and preserving atomicity.
+        Failed compliance checks revert automatically, preserving atomicity
+        and protecting users’ stablecoins.
       </p>
+    </div>
 
+    <div class="next-item">
       <h3>Stablecoin DEX</h3>
       <p>
         A purpose-built DEX optimized for stablecoin FX and payments,
         not speculation.
       </p>
+    </div>
 
+    <div class="next-item">
       <h3>Lending Pools</h3>
       <p>
         Lend and borrow stablecoins directly on Codex without leaving the network.
@@ -85,7 +121,8 @@
   <!-- Footer -->
   <footer class="footer">
     <p>Built with ❤️ by @TheEncryptedAnt</p>
-    <p>Learn more at <a href="https://codex.xyz" target="_blank">codex.xyz</a></p>
+    <p class="muted">Learn more at codex.xyz</p>
   </footer>
+
 </body>
 </html>
