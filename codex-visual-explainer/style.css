@@ -201,3 +201,12 @@ footer {
 .profile-link:hover {
   text-decoration: underline;
 }
+.x-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.x-link:hover {
+  text-decoration: underline;
+}
